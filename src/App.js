@@ -3,11 +3,13 @@ import './App.css'
 
 const DEFAULT_QUERY = 'redux'
 const DEFAULT_PAGE = 0
+const DEFAULT_HPP = 100
 
 const PATH_BASE = 'http://hn.algolia.com/api/v1'
 const PATH_SEARCH = '/search'
 const PARAM_SEARCH = 'query='
 const PARAM_PAGE = 'page='
+const PARAM_HPP = 'hitsPerPage='
 
 const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}`;
 
@@ -20,9 +22,6 @@ const largeColumn = {
   const smallColumn = {
   width: '10%',
   };
-
-const isSearched = (searchTerm) => (item) =>
-  !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase())
 
 class App extends Component {
   constructor(props) {
@@ -48,7 +47,7 @@ class App extends Component {
 
   setSearchTopStories(result) {
     const { hits, page } = result;
-    const oldHits = page != 0
+    const oldHits = page !== 0
       ? this.state.results.hits
       : []
     const updatedHits = [...oldHits, hits]
@@ -56,7 +55,7 @@ class App extends Component {
   }
 
   fetchSearchTopStories(searchTerm, page) {
-    fetch(`${url}${searchTerm}&${PARAM_PAGE}${page}`)
+    fetch(`${url}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
   }
