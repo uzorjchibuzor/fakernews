@@ -1,15 +1,16 @@
 import React from 'react'
 import Button from '../Button/button'
+import PropTypes from 'prop-types'
 
 const largeColumn = {
   width: '40%',
-  };
-  const midColumn = {
+};
+const midColumn = {
   width: '30%',
-  };
-  const smallColumn = {
+};
+const smallColumn = {
   width: '10%',
-  };
+};
 
 const Table = ({ list, onDismiss }) => {
   return (
@@ -36,6 +37,11 @@ const Table = ({ list, onDismiss }) => {
       }) }
     </div>
   )
+}
+
+Table.propTypes = {
+  list: PropTypes.array.isRequired,
+  onDismiss: PropTypes.func.isRequired,
 }
 
 export default Table
